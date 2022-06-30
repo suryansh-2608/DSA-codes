@@ -74,17 +74,29 @@ void delete_beg(struct node **h)
     *h = temp;
 }
 
-void delete_mid(struct node *h, int pos)
+void delete_mid(struct node *head, int pos)
 {
-    for(int i=2; i< pos; i++) 
+    struct node *temp = head;
+    int i;                    
+    if(pos==0)
     {
-         if(h->next!=NULL) 
-         {
-               h = h->next;
-         }
+        printf("\nElement deleted is : %d\n",temp->data);
+        head=head->next;
+        temp->next=NULL;
+        free(temp);
     }
-
-    h->next = h->next->next;
+    else
+    {
+        for(i=0;i<pos-1;i++)
+        {
+            temp=temp->next;
+        }
+        struct node *del =temp->next;
+        temp->next=temp->next->next;
+        printf("\nElement deleted is : %d\n",del->data);      
+        del->next=NULL;
+        free(del);
+    }
 }
 
 void delete_end(struct node *h)
@@ -137,7 +149,7 @@ int main()
     printlist(head);
     delete_end(head);
     printlist(head);
-    delete_mid(head, 4);
+    delete_mid(head, 1);
     printlist(head);
     deleteNode(&head, 12);
     printlist(head);
