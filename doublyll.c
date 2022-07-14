@@ -8,6 +8,8 @@ struct node
     struct node * prev;
 };
 
+
+
 int main()
 {
     struct node *head;
@@ -41,6 +43,6 @@ int main()
     fourth->next = NULL;
     fourth->prev = third;
 
-    
+
     return 0;
 }
