@@ -8,6 +8,24 @@ struct node
     struct node * prev;
 };
 
+void linkedListTraversal(struct node * head)
+{
+    struct node * ptr = head;
+    while (ptr!=NULL)
+    {
+        printf("Element is %d\n", ptr->data);
+        ptr= ptr->next;
+    }
+    
+}
+
+struct node * insert_beg(struct node *head, int data)
+{
+    struct node * ptr = (struct node *)malloc(sizeof(struct node));
+    ptr->next = head;
+    ptr->data =data;
+    return ptr;
+}
 
 
 int main()
@@ -43,6 +61,9 @@ int main()
     fourth->next = NULL;
     fourth->prev = third;
 
+    linkedListTraversal(head);
+    head = insert_beg(head, 12);
+    linkedListTraversal(head);
 
     return 0;
 }
