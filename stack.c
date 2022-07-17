@@ -8,6 +8,8 @@ struct stack
     int *arr;
 };
 
+
+
 int main()
 {
     // struct stack s;
