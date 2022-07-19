@@ -45,6 +45,6 @@ void peek(struct stack *s, int data)
 
 int main()
 {
-    
+    struct stack * s;
     return 0;
 }
