@@ -22,14 +22,14 @@ struct stack *push(struct stack *s, int data)
 
 }
 
-struct stack *pop(struct stack *s)
+struct stack *pop(struct stack **s)
 {
-    struct stack * n = s;
-    if(s==NULL)
+    struct stack * n = *s;
+    if(*s==NULL)
         printf("The stack is already empty\n");
     else
     {
-        s = s->next;
+        *s = (*s)->next;
         
         int x = n->data;
         free(n);
@@ -65,6 +65,7 @@ void peek(struct stack *s)
         printf("%d\t", s->data);
         s = s->next;
     }
+    printf("\n");
 }
 
 int main()
@@ -81,6 +82,7 @@ int main()
     isFull(s);
     isEmpty(s);
     peek(s);
-
+    pop(&s);
+    peek(s);
     return 0;
 }
