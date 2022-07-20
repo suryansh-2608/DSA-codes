@@ -58,7 +58,7 @@ void isFull(struct stack *s)
         printf("The stack is not FULL\n");
 }
 
-void peek(struct stack *s)
+void display(struct stack *s)
 {
     while(s != NULL)
     {
@@ -66,6 +66,34 @@ void peek(struct stack *s)
         s = s->next;
     }
     printf("\n");
+}
+
+void peek(struct stack *s, int pos)
+{
+    struct stack * ptr = s;
+    for(int i = 0;( i<pos-1 && ptr != NULL); i++ )
+    {
+        ptr = ptr->next;
+    }    
+    if(ptr!=NULL)
+        printf("The element is %d\n", ptr->data);
+    else
+        printf("Not Found\n");
+}
+
+void stackTop(struct stack * s)
+{
+    printf("The stack top is: %d\n", s->data);
+}
+
+void stackBottom(struct stack *s)
+{
+    while(s->next != NULL)
+    {
+        
+        s = s->next;
+    }
+    printf("The stack bottom is: %d\n", s->data);
 }
 
 int main()
@@ -81,8 +109,12 @@ int main()
     s = push(s, 17);
     isFull(s);
     isEmpty(s);
-    peek(s);
+    display(s);
     pop(&s);
-    peek(s);
+    display(s);
+    peek(s, 3);
+    peek(s, 10);
+    stackTop(s);
+    stackBottom(s);
     return 0;
 }
