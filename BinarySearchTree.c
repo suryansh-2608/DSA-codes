@@ -93,15 +93,15 @@ struct node *search(struct node *root, int key)
 void insert(struct node *root, int val)
 {
     struct node *prev = NULL;
-    while(root!=NULL)
+    while (root != NULL)
     {
         prev = root;
-        if(val == root->data)
+        if (val == root->data)
         {
             printf("Can't insert as %d already exists in BST", val);
             return;
         }
-        else if(val < root->data)
+        else if (val < root->data)
         {
             root = root->left;
         }
@@ -109,10 +109,9 @@ void insert(struct node *root, int val)
         {
             root = root->right;
         }
-
     }
     struct node *new = create_node(val);
-    if(val < prev->data)
+    if (val < prev->data)
     {
         prev->left = new;
     }
@@ -120,6 +119,47 @@ void insert(struct node *root, int val)
     {
         prev->right = new;
     }
+}
+
+struct node *inOrderpredecessor(struct node *root)
+{
+    root = root->left;
+    while (root->right != NULL)
+    {
+        root = root->right;
+    }
+    return root;
+}
+
+struct node *deleteNode(struct node *root, int value)
+{
+    struct node *ipre;
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    if (root->left == NULL && root->right == NULL)
+    {
+        free(root);
+        return NULL;
+    }
+
+    if (value < root->data)
+    {
+        root->left = deleteNode(root->left, value);
+    }
+    else if (value > root->data)
+    {
+        root->right = deleteNode(root->right, value);
+    }
+
+    else
+    {
+        ipre = inOrderpredecessor(root);
+        root->data = ipre->data;
+        root->left = deleteNode(root->left, ipre->data);
+    }
+    return root;
 }
 
 int main()
@@ -139,7 +179,7 @@ int main()
     // printf("\n");
     // postOrder(p);
     // printf("\n");
-    // inOrder(p);
+    inOrder(p);
     // printf("\n");
     // printf("%d\n", isBST(p));
     // struct node *ptr = search(p, 4);
@@ -148,8 +188,12 @@ int main()
     // else
     //     printf("Key NOT FOUND\n");
 
-    insert(p, 7);
-    printf("%d ", p->right->right->data);
+    // insert(p, 7);
+    // printf("%d ", p->right->right->data);
+    deleteNode(p, 5);
+    printf("\n");
+    printf("Data is %d\n", p->data);
+    inOrder(p);
 
     return 0;
 }
