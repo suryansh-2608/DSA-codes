@@ -48,6 +48,28 @@ void inOrder(struct node *root)
     }
 }
 
+int isBST(struct node *root)
+{
+    static struct node *prev = NULL;
+    if(root != NULL)
+    {
+        if(!isBST(root->left))
+        {
+            return 0;
+        }
+        if(prev!=NULL && root->data <= prev->data)
+        {
+            return 0;
+        }
+        prev = root;
+        return isBST(root->right);
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 int main()
 {
     struct node * p  = create_node(5);
@@ -66,6 +88,8 @@ int main()
     // postOrder(p);
     // printf("\n");
     inOrder(p);
+    printf("\n");
+    printf("%d\n", isBST(p));
 
     return 0;
 }
