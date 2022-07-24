@@ -18,9 +18,9 @@ struct node *create_node(int data)
     return ptr;
 }
 
-void preOrder(struct node * root)
+void preOrder(struct node *root)
 {
-    if(root != NULL)
+    if (root != NULL)
     {
         printf("%d ", root->data);
         preOrder(root->left);
@@ -30,7 +30,7 @@ void preOrder(struct node * root)
 
 void postOrder(struct node *root)
 {
-    if(root != NULL )
+    if (root != NULL)
     {
         postOrder(root->left);
         postOrder(root->right);
@@ -40,7 +40,7 @@ void postOrder(struct node *root)
 
 void inOrder(struct node *root)
 {
-    if(root != NULL)
+    if (root != NULL)
     {
         inOrder(root->left);
         printf("%d ", root->data);
@@ -51,13 +51,13 @@ void inOrder(struct node *root)
 int isBST(struct node *root)
 {
     static struct node *prev = NULL;
-    if(root != NULL)
+    if (root != NULL)
     {
-        if(!isBST(root->left))
+        if (!isBST(root->left))
         {
             return 0;
         }
-        if(prev!=NULL && root->data <= prev->data)
+        if (prev != NULL && root->data <= prev->data)
         {
             return 0;
         }
@@ -70,13 +70,33 @@ int isBST(struct node *root)
     }
 }
 
+struct node *search(struct node *root, int key)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    if (root->data == key)
+    {
+        return root;
+    }
+    else if (root->data > key)
+    {
+        return search(root->left, key);
+    }
+    else
+    {
+        return search(root->right, key);
+    }
+}
+
 int main()
 {
-    struct node * p  = create_node(5);
-    struct node * p1 = create_node(3);
-    struct node * p2 = create_node(6);
-    struct node * p3 = create_node(1);
-    struct node * p4 = create_node(4);
+    struct node *p = create_node(5);
+    struct node *p1 = create_node(3);
+    struct node *p2 = create_node(6);
+    struct node *p3 = create_node(1);
+    struct node *p4 = create_node(4);
 
     p->left = p1;
     p->right = p2;
@@ -90,6 +110,11 @@ int main()
     inOrder(p);
     printf("\n");
     printf("%d\n", isBST(p));
+    struct node *ptr = search(p, 4);
+    if (ptr != NULL)
+        printf("Key found: %d\n", ptr->data);
+    else
+        printf("Key NOT FOUND\n");
 
     return 0;
 }
