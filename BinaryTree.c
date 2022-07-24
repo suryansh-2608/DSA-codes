@@ -23,5 +23,7 @@ int main()
     p1 = create_node(p1, 2);
     p2 = create_node(p2, 3);
     p3 = create_node(p3, 4);
+    p1->left = p2;
+    p1->right = p3;
     return 0;
 }
