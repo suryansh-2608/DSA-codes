@@ -8,8 +8,9 @@ struct node
     struct node *right;
 };
 
-struct node *create_node(struct node *ptr, int data)
+struct node *create_node(int data)
 {
+    struct node *ptr;
     ptr = (struct node *)malloc(sizeof(struct node));
     ptr->data = data;
     ptr->left = NULL;
@@ -17,13 +18,30 @@ struct node *create_node(struct node *ptr, int data)
     return ptr;
 }
 
+void preOrder(struct node * root)
+{
+    if(root != NULL)
+    {
+        printf("%d ", root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
 int main()
 {
-    struct node *p1, *p2, *p3;
-    p1 = create_node(p1, 2);
-    p2 = create_node(p2, 3);
-    p3 = create_node(p3, 4);
-    p1->left = p2;
-    p1->right = p3;
+    struct node * p  = create_node(4);
+    struct node * p1 = create_node(1);
+    struct node * p2 = create_node(6);
+    struct node * p3 = create_node(5);
+    struct node * p4 = create_node(2);
+
+    p->left = p1;
+    p->right = p2;
+    p1->left = p3;
+    p1->right = p4;
+
+    preOrder(p);
+
     return 0;
 }
