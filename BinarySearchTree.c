@@ -90,6 +90,38 @@ struct node *search(struct node *root, int key)
     }
 }
 
+void insert(struct node *root, int val)
+{
+    struct node *prev = NULL;
+    while(root!=NULL)
+    {
+        prev = root;
+        if(val == root->data)
+        {
+            printf("Can't insert as %d already exists in BST", val);
+            return;
+        }
+        else if(val < root->data)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+
+    }
+    struct node *new = create_node(val);
+    if(val < prev->data)
+    {
+        prev->left = new;
+    }
+    else
+    {
+        prev->right = new;
+    }
+}
+
 int main()
 {
     struct node *p = create_node(5);
@@ -107,14 +139,17 @@ int main()
     // printf("\n");
     // postOrder(p);
     // printf("\n");
-    inOrder(p);
-    printf("\n");
-    printf("%d\n", isBST(p));
-    struct node *ptr = search(p, 4);
-    if (ptr != NULL)
-        printf("Key found: %d\n", ptr->data);
-    else
-        printf("Key NOT FOUND\n");
+    // inOrder(p);
+    // printf("\n");
+    // printf("%d\n", isBST(p));
+    // struct node *ptr = search(p, 4);
+    // if (ptr != NULL)
+    //     printf("Key found: %d\n", ptr->data);
+    // else
+    //     printf("Key NOT FOUND\n");
+
+    insert(p, 7);
+    printf("%d ", p->right->right->data);
 
     return 0;
 }
